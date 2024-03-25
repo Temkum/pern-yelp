@@ -35,6 +35,9 @@ CREATE TABLE restaurants (
 INSERT INTO restaurants (id, name, location, price_range) values (125, 'Kati Kati', 'Douala', 4);
 ```
 
-- install dotenv for managing 
+- install dotenv for managing env files
 
+- install morgan to manage our middleware `npm i morgan`
+
+- to communicate with node postgres use `npm i pg`
 50m

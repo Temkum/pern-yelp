@@ -2,6 +2,9 @@ import express from 'express';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 
+// import query from index.js
+import { query } from './db/index.js';
+
 dotenv.config();
 
 const app = new express();
@@ -16,18 +19,10 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  console.log('Second middleware...');
-  next();
-});
-
-app.get('/api/v1/restaurants', (req, res) => {
-  res.status(200).json({
-    status: 'SUCCESS',
-    data: {
-      restaurant: ['exa1', 'exam2', 'exam3'],
-    },
-  });
+app.get('/api/v1/restaurants', async (req, res) => {
+  const results = await query('SELECT * FROM restaurants');
+  console.log(results);
+  res.send(results);
 });
 
 app.post('/api/v1/restaurants', (req, res) => {
