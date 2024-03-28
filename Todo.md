@@ -40,4 +40,8 @@ INSERT INTO restaurants (id, name, location, price_range) values (125, 'Kati Kat
 - install morgan to manage our middleware `npm i morgan`
 
 - to communicate with node postgres use `npm i pg`
-50m
+
+- use content api to store data which gets passed down to all components
+
+
+3h18m
