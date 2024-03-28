@@ -1,7 +1,7 @@
 /* load fonts from assets */
 @font-face {
   font-family: 'Gordita';
-  src: url('../public/assets/fonts/Gordita\ Light.otf') format('opentype'), url('../public/assets/fonts/Gordita Light.otf') format('truetype');
+  src: url('/assets/fonts/Gordita\ Light.otf') format('opentype'), url('/assets/fonts/Gordita\ Regular.otf') format('truetype');
 }
 
 body {

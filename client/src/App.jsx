@@ -4,11 +4,13 @@ import Home from './routes/Home'
 import UpdateRestaurant from './routes/UpdateRestaurant'
 import RestaurantDetails from './routes/RestaurantDetails'
 import './App.css'
+import { RestaurantContextProvider } from './context/RestaurantContext'
 
 
 const App = () => {
 
   return (
+    <RestaurantContextProvider>
     <div>
       <BrowserRouter>
         <Routes>
@@ -18,6 +20,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
+    </RestaurantContextProvider>
   )
 }
 

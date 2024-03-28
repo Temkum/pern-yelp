@@ -12,16 +12,13 @@ const AddRestaurant = () => {
             <input
               type="text"
               className="form-control"
-                          id="name"
-                          name='name'
+              id="name"
+              name="name"
               placeholder="Name"
             />
           </div>
           <div className="col-sm-3">
-            <label
-              className="visually-hidden"
-              htmlFor="location"
-            >
+            <label className="visually-hidden" htmlFor="location">
               Location
             </label>
             <div className="input-group">
@@ -40,10 +37,10 @@ const AddRestaurant = () => {
             <select className="form-select" id="price_range">
               <option>Choose...</option>
               <option value="1">$</option>
-                <option value="2">$$</option>
-                <option value="3">$$$</option>
-                <option value="4">$$$$</option>
-                <option value="5">$$$$$</option>
+              <option value="2">$$</option>
+              <option value="3">$$$</option>
+              <option value="4">$$$$</option>
+              <option value="5">$$$$$</option>
             </select>
           </div>
           <div className="col-auto">
