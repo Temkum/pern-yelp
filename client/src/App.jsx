@@ -3,6 +3,7 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import Home from './routes/Home'
 import UpdateRestaurant from './routes/UpdateRestaurant'
 import RestaurantDetails from './routes/RestaurantDetails'
+import './App.css'
 
 
 const App = () => {
