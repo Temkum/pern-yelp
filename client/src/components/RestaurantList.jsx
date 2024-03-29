@@ -4,7 +4,7 @@ import { RestaurantContext } from '../context/RestaurantContext';
 
 const RestaurantList = (props) => {
   const { restaurants, setRestaurants } = useContext(RestaurantContext);
-  const {addRestaurants} = useContext(RestaurantContext);
+  const { addRestaurants } = useContext(RestaurantContext);
 
   useEffect(() => {
     const getRestaurants = async () => {
@@ -18,7 +18,20 @@ const RestaurantList = (props) => {
     };
 
     getRestaurants();
-  }, [restaurants]);
+  }, []);
+
+  const deleteRestaurant = async (id) => {
+    try {
+      const response = await RestaurantFinder.delete(`/${id}`);
+      setRestaurants(
+        restaurants.filter((restaurant) => {
+          return restaurant.id !== id;
+        })
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="container mt-4">
@@ -49,7 +62,7 @@ const RestaurantList = (props) => {
                   </button>
                 </td>
                 <td>
-                  <button type="button" className="btn btn-danger">
+                  <button type="button" className="btn btn-danger" onClick={() => deleteRestaurant(restaurant.id)}>
                     Delete
                   </button>
                 </td>
