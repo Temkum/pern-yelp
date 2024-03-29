@@ -44,4 +44,4 @@ INSERT INTO restaurants (id, name, location, price_range) values (125, 'Kati Kat
 - use content api to store data which gets passed down to all components
 
 
-3h18m
+4h26m

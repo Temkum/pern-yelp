@@ -23,7 +23,9 @@ const RestaurantList = (props) => {
     getRestaurants();
   }, []);
 
-  const deleteRestaurant = async (id) => {
+  const deleteRestaurant = async (e, id) => {
+    e.stopPropagation();
+
     try {
       const response = await RestaurantFinder.delete(`/${id}`);
       setRestaurants(
@@ -36,8 +38,13 @@ const RestaurantList = (props) => {
     }
   };
 
-  const handleEditClick = (id) => {
+  const handleEditClick = (e, id) => {
+    e.stopPropagation();
     navigate(`/restaurants/${id}/update`);
+  };
+
+  const handleDetailsClick = (id) => {
+    navigate(`/restaurants/${id}`);
   };
 
   return (
@@ -58,7 +65,10 @@ const RestaurantList = (props) => {
           {restaurants &&
             restaurants.map((restaurant) => {
               return (
-                <tr key={restaurant.id}>
+                <tr
+                  key={restaurant.id}
+                  onClick={() => handleDetailsClick(restaurant.id)}
+                >
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{'$'.repeat(restaurant.price_range)}</td>
@@ -68,7 +78,7 @@ const RestaurantList = (props) => {
                     <button
                       type="button"
                       className="btn btn-warning"
-                      onClick={() => handleEditClick(restaurant.id)}
+                      onClick={(e) => handleEditClick(e, restaurant.id)}
                     >
                       Edit
                     </button>
@@ -77,7 +87,7 @@ const RestaurantList = (props) => {
                     <button
                       type="button"
                       className="btn btn-danger"
-                      onClick={() => deleteRestaurant(restaurant.id)}
+                      onClick={(e) => deleteRestaurant(e, restaurant.id)}
                     >
                       Delete
                     </button>
