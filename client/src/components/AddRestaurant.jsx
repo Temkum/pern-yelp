@@ -1,6 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import RestaurantFinder from '../apis/RestaurantFinder';
 
 const AddRestaurant = () => {
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [priceRange, setPriceRange] = useState('Price Range');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // use axios
+    try {
+      RestaurantFinder.post('/', {
+        name,
+        location,
+        price_range: priceRange,
+      })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div className="mt-4 container">
       <div className="form-row">
@@ -15,6 +40,8 @@ const AddRestaurant = () => {
               id="name"
               name="name"
               placeholder="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
           <div className="col-sm-3">
@@ -27,6 +54,8 @@ const AddRestaurant = () => {
                 className="form-control"
                 id="location"
                 placeholder="Location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
               />
             </div>
           </div>
@@ -34,7 +63,12 @@ const AddRestaurant = () => {
             <label className="visually-hidden" htmlFor="price_range">
               Price Range
             </label>
-            <select className="form-select" id="price_range">
+            <select
+              className="form-select"
+              id="price_range"
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+            >
               <option>Choose...</option>
               <option value="1">$</option>
               <option value="2">$$</option>
@@ -44,7 +78,11 @@ const AddRestaurant = () => {
             </select>
           </div>
           <div className="col-auto">
-            <button type="submit" className="btn btn-primary">
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={handleSubmit}
+            >
               Submit
             </button>
           </div>

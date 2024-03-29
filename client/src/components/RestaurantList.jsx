@@ -3,12 +3,14 @@ import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantContext } from '../context/RestaurantContext';
 
 const RestaurantList = (props) => {
-  const {restaurants, setRestaurants} = useContext(RestaurantContext);
+  const { restaurants, setRestaurants } = useContext(RestaurantContext);
+  const {addRestaurants} = useContext(RestaurantContext);
 
   useEffect(() => {
     const getRestaurants = async () => {
       try {
         const response = await RestaurantFinder.get('/');
+        addRestaurants(response.data);
         setRestaurants(response.data);
       } catch (error) {
         console.error(error);
@@ -16,7 +18,7 @@ const RestaurantList = (props) => {
     };
 
     getRestaurants();
-  }, []);
+  }, [restaurants]);
 
   return (
     <div className="container mt-4">
