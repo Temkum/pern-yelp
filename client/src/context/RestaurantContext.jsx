@@ -7,10 +7,20 @@ export const RestaurantContextProvider = (props) => {
 
   const addRestaurants = (restaurant) => {
     setRestaurants(...restaurants, restaurant);
-  }
+  };
+
+  const updateRestaurant = (updatedRestaurant) => {
+    setRestaurants(
+      restaurants.map((restaurant) =>
+        restaurant.id === updatedRestaurant.id ? updatedRestaurant : restaurant
+      )
+    );
+  };
 
   return (
-    <RestaurantContext.Provider value={{ restaurants, setRestaurants, addRestaurants }}>
+    <RestaurantContext.Provider
+      value={{ restaurants, setRestaurants, addRestaurants, updateRestaurant }}
+    >
       {props.children}
     </RestaurantContext.Provider>
   );
