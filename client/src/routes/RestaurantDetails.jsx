@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RestaurantContext } from '../context/RestaurantContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
-import StarRating from '../components/StarRating';
+import Reviews from '../components/Reviews';
+import AddReview from '../components/AddReview';
 
 const RestaurantDetails = () => {
   const { id } = useParams();
@@ -14,6 +15,7 @@ const RestaurantDetails = () => {
       try {
         const response = await RestaurantFinder.get(`/${id}`);
         setSelectedRestaurant(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.log(error);
       }
@@ -31,30 +33,16 @@ const RestaurantDetails = () => {
     <div className="container mt-5">
       {selectedRestaurant && (
         <>
-          <h3 className="text-center display-3">{selectedRestaurant.name}</h3>
-          <div className="card w-50">
-            <div className="card-header fw-bold">{selectedRestaurant.name}</div>
-            <div className="card-body">
-              <h5 className="card-title">
-                Located at: {selectedRestaurant.location}
-              </h5>
-              <p className="card-text">
-                Price Range: {selectedRestaurant.price_range}
-              </p>
-              <button
-                className="btn btn-primary btn-sm"
-                onClick={handleBackClick}
-              >
-                Go back
-              </button>
-            </div>
-            <div className="card-footer">
-              Ratings:{' '}
-              <span>
-                <StarRating rating={4} />
-              </span>
-            </div>
-          </div>
+          <h2 className="text-center">{selectedRestaurant.restaurant.name}</h2>
+          <Reviews reviews={selectedRestaurant.reviews} />
+          <AddReview />
+          <button
+            type="button"
+            className="btn btn-warning mt-3 btn-sm"
+            onClick={handleBackClick}
+          >
+            Back
+          </button>
         </>
       )}
     </div>
