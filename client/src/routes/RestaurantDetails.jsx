@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { RestaurantContext } from '../context/RestaurantContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
+import StarRating from '../components/StarRating';
 
 const RestaurantDetails = () => {
   const { id } = useParams();
@@ -46,6 +47,12 @@ const RestaurantDetails = () => {
               >
                 Go back
               </button>
+            </div>
+            <div className="card-footer">
+              Ratings:{' '}
+              <span>
+                <StarRating rating={4} />
+              </span>
             </div>
           </div>
         </>

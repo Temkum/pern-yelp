@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import RestaurantFinder from '../apis/RestaurantFinder';
 import { RestaurantContext } from '../context/RestaurantContext';
 import { useNavigate } from 'react-router-dom';
+import StarRating from './StarRating';
 
 const RestaurantList = (props) => {
   const { restaurants, setRestaurants, addRestaurants } =
@@ -56,7 +57,6 @@ const RestaurantList = (props) => {
             <th scope="col">Location</th>
             <th scope="col">Price Range</th>
             <th scope="col">Ratings</th>
-            <th scope="col">Reviews</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
           </tr>
@@ -72,8 +72,9 @@ const RestaurantList = (props) => {
                   <td>{restaurant.name}</td>
                   <td>{restaurant.location}</td>
                   <td>{'$'.repeat(restaurant.price_range)}</td>
-                  <td>Ratings</td>
-                  <td>Reviews</td>
+                  <td>
+                    <StarRating rating={5} />
+                  </td>
                   <td>
                     <button
                       type="button"

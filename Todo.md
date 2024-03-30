@@ -43,5 +43,16 @@ INSERT INTO restaurants (id, name, location, price_range) values (125, 'Kati Kat
 
 - use content api to store data which gets passed down to all components
 
+<!-- create reviews table -->
+```sql
+CREATE TABLE reviews (
+    id BIGSERIAL NOT NULL PRIMARY KEY,
+    restaurant_id BIGINT NOT NULL REFERENCES restaurants(id),
+    name VARCHAR(50) NOT NULL,
+    review TEXT NOT NULL,
+    rating INT NOT NULL check(rating >= 1 and rating <= 5)
+);
+``
 
-4h26m
+
+4h55m
