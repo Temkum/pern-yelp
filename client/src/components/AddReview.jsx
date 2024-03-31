@@ -1,11 +1,22 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import RestaurantFinder from '../apis/RestaurantFinder';
 
 const AddReview = () => {
+  const { id } = useParams();
   const [name, setName] = useState('');
   const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState('Rating');
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    await RestaurantFinder.post(`/${id}/add-review`, {
+      name,
+      review: reviewText,
+      rating,
+    });
+  };
 
   return (
     <div>

@@ -90,4 +90,17 @@ app.delete('/api/v1/restaurants/:id', async (req, res) => {
   }
 });
 
+app.post('/api/v1/restaurants/:id/add-review', async (req, res) => {
+  try {
+    const results = await query(
+      'INSERT INTO reviews(restaurant_id, name, review, rating) VALUES($1, $2, $3, $4) RETURNING *',
+      [req.params.id, req.body.name, req.body.review, req.body.rating]
+    );
+    res.status(201).send(results);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+});
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
