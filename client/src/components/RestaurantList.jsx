@@ -22,7 +22,7 @@ const RestaurantList = (props) => {
     };
 
     getRestaurants();
-  }, []);
+  }, [addRestaurants, setRestaurants]);
 
   const deleteRestaurant = async (e, id) => {
     e.stopPropagation();
@@ -48,6 +48,20 @@ const RestaurantList = (props) => {
     navigate(`/restaurants/${id}`);
   };
 
+  const renderRating = (restaurant) => {
+    if (!restaurant.count) {
+      return <span className="text-warning">0 reviews</span>;
+    }
+    return (
+      <>
+        <StarRating rating={restaurant.id} />
+        <span className="badge text-bg-warning rounded-pill text-center ms-3">
+          {restaurant.count}
+        </span>
+      </>
+    );
+  };
+
   return (
     <div className="container mt-4">
       <table className="table table-hover">
@@ -62,8 +76,8 @@ const RestaurantList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {restaurants &&
-            restaurants.map((restaurant) => {
+          {restaurants.ratingsData &&
+            restaurants.ratingsData.map((restaurant) => {
               return (
                 <tr
                   key={restaurant.id}
@@ -73,7 +87,11 @@ const RestaurantList = (props) => {
                   <td>{restaurant.location}</td>
                   <td>{'$'.repeat(restaurant.price_range)}</td>
                   <td>
-                    <StarRating rating={5} />
+                    {/* <StarRating rating={restaurant.id} />
+                    <span className="badge text-bg-primary rounded-pill text-center ms-3">
+                      {restaurant.count}
+                    </span> */}
+                    {renderRating(restaurant)}
                   </td>
                   <td>
                     <button

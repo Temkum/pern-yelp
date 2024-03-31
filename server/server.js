@@ -23,8 +23,17 @@ app.use((req, res, next) => {
 
 app.get('/api/v1/restaurants', async (req, res) => {
   try {
-    const results = await query('SELECT * FROM restaurants');
-    res.send(results);
+    // const results = await query('SELECT * FROM restaurants');
+
+    const restaurantRatingData = await query(
+      'SELECT * from restaurants left join (SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating), 1) as average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id'
+    );
+
+    res.status(200).json({
+      results: restaurantRatingData.length,
+      ratingsData: restaurantRatingData,
+    });
+    console.log(restaurantRatingData.length);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
@@ -56,7 +65,14 @@ app.get('/api/v1/restaurants/:id', async (req, res) => {
       [req.params.id]
     );
 
-    res.status(200).json({ restaurant: results[0], reviews: reviews });
+    const rating = await query(
+      'SELECT * from restaurants left join (SELECT restaurant_id, COUNT(*), TRUNC(AVG(rating), 1) as average_rating FROM reviews GROUP BY restaurant_id) reviews ON restaurants.id = reviews.restaurant_id WHERE id = $1',
+      [req.params.id]
+    );
+
+    res
+      .status(200)
+      .json({ restaurant: results[0], reviews: reviews, rating: rating[0] });
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
